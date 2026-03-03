@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Panel</title>
+ 
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+ 
+.panel {
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+  gap: 15px;
+}
+ 
+button {
+  padding: 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #2c3e50;
+  color: white;
+}
+ 
+button:hover {
+  background: #34495e;
+}
+ 
+.status {
+  position: absolute;
+  bottom: 20px;
+  font-size: 14px;
+  color: #555;
+}
+</style>
+</head>
+
+<div class="container">
+  <h1>Sample Audio Button Panel</h1>
+ 
+<body>
+ 
+<div class="panel">
+ 
+  <button data-audio="audio 1.mp3">English (US)</button>
+  <button data-audio="audio 2.mp3">English (UK)</button>
+  <button data-audio="audio 3.mp3">English (India)</button>
+ 
+  <button data-audio="audio 4.mp3">English (Australia)</button>
+  <button data-audio="audio 5.mp3">English (Canada)</button>
+  <button data-audio="audio 6.mp3">English (Ireland)</button>
+ 
+  <button data-audio="audio 7.mp3">English (South Africa)</button>
+  <button data-audio="audio 8.mp3">English (Chinese)/button>
+  <button data-audio="audio 9.mp3">English (Germany)</button>
+
+  <button data-audio="audio 10.mp3">English (French)</button>
+  <button data-audio="audio 11.mp3">English (Arabic)/button>
+  <button data-audio="audio 12.mp3">English (Philippines)</button>
+ 
+</div>
+ 
+<div class="status" id="status">
+  No audio playing
+</div>
+ 
+<script>
+const buttons = document.querySelectorAll("button");
+let currentAudio = null;
+const status = document.getElementById("status");
+ 
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+ 
+    const file = button.getAttribute("data-audio");
+ 
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+ 
+    currentAudio = new Audio(file);
+    currentAudio.play();
+ 
+    status.textContent = "Playing: " + file;
+ 
+    currentAudio.onended = () => {
+      status.textContent = "No audio playing";
+    };
+  });
+});
+</script>
+ 
+</body>
+</html>
